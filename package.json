@@ -1,0 +1,31 @@
+{
+  "name": "rutha-utils",
+  "version": "0.1.0",
+  "description": "Rutha Utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt spec"
+  },
+  "author": "Rogelio Morrell",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jasmine": "~0.6.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-jasmine-node": "~0.2.1",
+    "jasmine-node": "~2.0.0",
+    "jit-grunt": "~0.7.0",
+    "load-grunt-config": "~0.11.0",
+    "time-grunt": "~0.4.0"
+  },
+  "dependencies": {
+    "hapi": "~6.0.2",
+    "underscore": "^1.6.0",
+    "debug": "~1.0.4",
+    "nconf": "~0.6.9",
+    "winston": "~0.7.3",
+    "mongoose": "~3.8.14",
+    "inflection": "~1.3.8",
+    "require-directory": "~2.0.0"
+  }
+}
