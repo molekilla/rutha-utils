@@ -18,6 +18,12 @@ An instantiated Mongoose client.
 
 ### How to use
 
+#### Install from npm
+
+`npm install rutha-utils`
+
+#### Configure
+
 Simply define the config folder path containing your config files and for mongoose models, where the models folder is. For now copy/paste the models/index.js until we are able to create a better feature (e.g. rutha-mongoose)
 
 ```javascript
