@@ -5,16 +5,18 @@ rutha-utils
 
 ### RuthaUtils.Config
 
-Uses winston
+Uses [nconf](https://www.npmjs.org/package/nconf)
+
+Call `utils.Config.get('key')` to read config attributes.
 
 ### RuthaUtils.Logger
 
-Uses nconf
+Uses [winston](https://www.npmjs.org/package/winston)
+
 
 ### RuthaUtils.MongooseClient
 
-An instantiated Mongoose client. 
-
+An instantiated Mongoose client.
 
 ### How to use
 
@@ -35,6 +37,13 @@ var utils = new RuthaUtils.create({
         models: __dirname + '/models'
       }
     });
+
+// adding to Hapi as pack app vars
+server.pack.app = {
+  models: utils.MongooseClient.models,
+  config: utils.Config,
+  logger: utils.Logger
+};
 ```
 
 ### License

@@ -1,16 +1,12 @@
 /*globals expect:true, spyOn:true */
 var RuthaUtils = require('../index');
 
-var utils;
-
-beforeEach(function() {
-    utils = new RuthaUtils.create({
+var utils = new RuthaUtils.create({
       path: {
         config: __dirname + '/config',
         models: __dirname + '/models'
       }
     });
-});
 
 describe("Lib Test", function() {
 

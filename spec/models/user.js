@@ -1,9 +1,9 @@
-var Mongoose = require('mongoose');
+module.exports = function(Mongoose) {
 
-var User = new Mongoose.Schema({
-  email: { type: String, required: true }
-});
-
-
-module.exports = User;
+    var User = new Mongoose.Schema({
+      email: { type: String, required: true }
+    });
+    
+    Mongoose.model('User', User);
+};
 

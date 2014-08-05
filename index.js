@@ -13,7 +13,7 @@ exports.create = function(options) {
 
     var MongooseClient = new mongooseClient({
       logger: Logger,
-      config: Config,
+      connectionString: Config.get('mongodb:connectionString'),
       modelsPath: options.path.models
     });
 

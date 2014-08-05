@@ -1,9 +1,13 @@
 var Mongoose = require('mongoose');
-var inflection = require('inflection');
 var _ = require('underscore');
 
 function MongooseClient(options) {
-  var connectionString = options.config.get('mongodb:connectionString');
+  var self = this;
+  var fs = require('fs'),
+      modelPath = options.modelsPath,
+      connectionString = options.connectionString;
+
+  console.log(connectionString);
   Mongoose.connect(connectionString);
 
   Mongoose.connection.on('connected', function() {
@@ -25,11 +29,13 @@ function MongooseClient(options) {
     });
   });
 
-  this.client = Mongoose;
-  var schemas = require(options.modelsPath);
-  _.each(schemas, function(schema, key) {
-    Mongoose.model(key, schema, inflection.pluralize(key));
+
+  fs.readdirSync(modelPath).forEach(function(key) {
+    var schema = require(modelPath + '/' + key);
+    schema(Mongoose);
   });
+
+  this.client = Mongoose;
 }
 
 module.exports = MongooseClient;
