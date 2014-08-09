@@ -7,7 +7,6 @@ function MongooseClient(options) {
       modelPath = options.modelsPath,
       connectionString = options.connectionString;
 
-  console.log(connectionString);
   Mongoose.connect(connectionString);
 
   Mongoose.connection.on('connected', function() {

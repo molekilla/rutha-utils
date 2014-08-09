@@ -6,7 +6,6 @@ function RuthaUtils() {
 }
 
 RuthaUtils.createConfig = function(options) {
-    console.log(options);
 
   if (options && options.path && options.path.config) {
     return new config(options.path.config);
