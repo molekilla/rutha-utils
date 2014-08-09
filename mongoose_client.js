@@ -11,20 +11,20 @@ function MongooseClient(options) {
   Mongoose.connect(connectionString);
 
   Mongoose.connection.on('connected', function() {
-    options.logger.info('Mongoose connected to ' + connectionString);
+    console.log('Mongoose connected to ' + connectionString);
   });
 
   Mongoose.connection.on('error', function(err) {
-    options.logger.error('Mongoose connection error:' + err);
+    console.log('Mongoose connection error:' + err);
   });
 
   Mongoose.connection.on('disconnected', function() {
-    options.logger.info('Mongoose disconnected');
+    console.log('Mongoose disconnected');
   });
 
   process.on('SIGINT', function() {
     Mongoose.connection.close(function() {
-      options.logger.info('Mongoose disconnected through appp termination');
+      console.log('Mongoose disconnected through appp termination');
       process.exit(0);
     });
   });

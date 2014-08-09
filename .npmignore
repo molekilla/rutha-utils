@@ -1,0 +1,4 @@
+spec/
+logs/
+node_modules/
+grunt/

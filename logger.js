@@ -2,10 +2,10 @@ var winston = require('winston');
 
 function Logger(options) {
  var opts = {
-    filename: options.config.get('logger:filename'),
-    maxSize: 1048576,
-    maxFiles: 1,
-    level: options.config.get('logger:level')
+    filename: options.filename,
+    maxSize: options.maxSize || 1048576,
+    maxFiles: options.maxFiles || 1,
+    level: options.level || 'silly'
  };
 
  try {

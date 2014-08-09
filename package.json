@@ -1,12 +1,16 @@
 {
   "name": "rutha-utils",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Rutha Utils",
   "main": "index.js",
   "scripts": {
     "test": "grunt spec"
   },
   "author": "Rogelio Morrell",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/molekilla/rutha-utils.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
