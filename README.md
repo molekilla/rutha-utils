@@ -3,6 +3,8 @@ rutha-utils
 
 ## Rutha Utilities for Rutha Dev Stack
 
+Contains plug and play wrappers for nconf, winston and mongoose. Just that. No magic.
+
 ### RuthaUtils.Config
 
 Uses [nconf](https://www.npmjs.org/package/nconf)
@@ -26,24 +28,85 @@ An instantiated Mongoose client.
 
 #### Configure
 
-Simply define the config folder path containing your config files and for mongoose models, where the models folder is. For now copy/paste the models/index.js until we are able to create a better feature (e.g. rutha-mongoose)
+From RuthaUtils, use any of these three features:
+
+`createConfig` to get the `nconf` instance
+`createLogger` to get the `winston` instance
+`createModels` to get the `mongoose` models loaded up
+
+##### Rutha stack HapiJS server example
 
 ```javascript
+var Hapi = require('hapi');
+var debug = require('debug')('api:main');
 var RuthaUtils = require('rutha-utils');
-
-var utils = new RuthaUtils.create({
-      path: {
-        config: __dirname + '/config',
-        models: __dirname + '/models'
-      }
-    });
-
-// adding to Hapi as pack app vars
+ 
+// nconf config
+var config = RuthaUtils.createConfig({
+  path: {
+    config: __dirname + '/../../config'
+  }
+});
+ 
+// winston logger
+var logger = RuthaUtils.createLogger({
+  filename: config.get('logger:filename'),
+  level: config.get('logger:level')
+});
+ 
+// mongoose client
+var mongooseClient = RuthaUtils.createModels({
+  client: 'mongoose',
+  connectionString: config.get('mongodb:connectionString'),
+  models: __dirname + '../../shared_models'
+});
+ 
+// Create a server with a host and port
+var server = module.exports = Hapi.createServer(config.get('apiServer:host'), config.get('apiServer:port'));
+ 
+// health check
+server.route({
+  method: 'GET',
+  path: '/api/health',
+  handler: function(req, reply) {
+    reply('OK');
+  }
+});
+ 
+// Dependencies
 server.pack.app = {
-  models: utils.MongooseClient.models,
-  config: utils.Config,
-  logger: utils.Logger
+  mongoose: mongooseClient,
+  config: config,
+  logger: logger
 };
+ 
+debug('Set mongoose, config, logger dependencies');
+ 
+var controllers = [
+  {
+    plugin: require('lout'),
+    options:
+    {
+      endpoint: '/api/docs'
+    }
+  },
+  {
+    plugin: require('../controllers/users/index'),
+  }
+];
+ 
+  server.pack.register(controllers,
+   {
+     route: {
+       prefix: '/api'
+     }
+   }, function() {
+    if (!module.parent) {
+      server.start(function () {
+        console.log('Server started at port ' + server.info.port);
+      });
+    }
+  });
 ```
 
 ### License
