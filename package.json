@@ -1,6 +1,6 @@
 {
   "name": "rutha-utils",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Rutha Utils",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,6 @@
     "debug": "~1.0.4",
     "nconf": "~0.6.9",
     "winston": "~0.7.3",
-    "mongoose": "~3.8.14"
+    "mongoose": "~3.8.15"
   }
 }
