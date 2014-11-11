@@ -1,5 +1,4 @@
 var config = require('./config'),
-    MongooseClient = require('./mongoose_client'),
     logger = require('./logger');
 
 function RuthaUtils() {
@@ -11,23 +10,6 @@ RuthaUtils.createConfig = function(options) {
     return new config(options.path.config);
   } else {
     throw new Error('Missing options.path.config');
-  }
-};
-
-RuthaUtils.createModels = function(options) {
-  if (options && options.client && options.connectionString && options.models) {
-
-    if (options.client === 'mongoose') {
-      return new MongooseClient({
-        connectionString: options.connectionString,
-        modelsPath: options.models
-      });
-    } else {
-      return new Error('Undefined options.client');
-    }
-
-  } else {
-    throw new Error('Missing createModels options');
   }
 };
 

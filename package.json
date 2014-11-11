@@ -1,6 +1,6 @@
 {
   "name": "rutha-utils",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "Rutha Utils",
   "main": "index.js",
   "scripts": {
@@ -23,10 +23,10 @@
     "time-grunt": "~0.4.0"
   },
   "dependencies": {
-    "underscore": "^1.6.0",
-    "debug": "~1.0.4",
+    "underscore": "^1.7.0",
+    "debug": "~2.1.0",
     "nconf": "~0.6.9",
-    "winston": "~0.7.3",
-    "mongoose": "~3.8.15"
+    "winston": "~0.8.3",
+    "mongoose": "~3.8.19"
   }
 }

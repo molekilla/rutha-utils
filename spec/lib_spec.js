@@ -4,22 +4,16 @@ var config = RuthaUtils.createConfig({
   path: {
     config: __dirname + '/config'
   }
-});
+}).load();
 
 var logger = RuthaUtils.createLogger({
   filename: config.get('logger:filename')
 });
 
-var mongoose = RuthaUtils.createModels({
-  client: 'mongoose',
-  connectionString: config.get('mongodb:connectionString'),
-  models: __dirname + '/models'
-});
-
+var Mongoose = require('mongoose');
+var MongooseHandler = require('../mongoose');
 
 describe("Lib Test", function() {
-
-
   it("should load development config", function() {
     process.env.NODE_ENV = 'development';
     expect(config.get('apiServer:port')).toBe(3002);
@@ -27,7 +21,8 @@ describe("Lib Test", function() {
 
   it("should load test config", function() {
     process.env.NODE_ENV = 'test';
-    expect(config.get('apiServer:port')).toBe(3002);
+    var test = config.load();
+    expect(test.get('apiServer:port')).toBe(3001);
   });
 
   // should load logger
@@ -38,9 +33,22 @@ describe("Lib Test", function() {
     expect(logger.info).toHaveBeenCalled();
   });
 
-  // should load mongoose client
-  it("should have a mongoose connection", function() {
-    process.env.NODE_ENV = 'development';
-    expect(mongoose.client.connection.readyState).toBe(2);
+  it("should bind to mongoose events", function() {
+    Mongoose.connect();
+    spyOn(MongooseHandler, 'bindEvents');
+    MongooseHandler.bindEvents(Mongoose);
+    expect(MongooseHandler.bindEvents).toHaveBeenCalled();
+  });
+  
+  it("should bind to mongoose models", function() {
+    expect(function() {
+      Mongoose.connect();
+      spyOn(MongooseHandler, 'bindModels');
+      MongooseHandler.bindModels({
+        mongoose: Mongoose,
+        modelsPath: '../spec/models'
+      });
+      expect(MongooseHandler.bindModels).toHaveBeenCalled();
+    }).toThrow(new Error('Trying to open unclosed connection.'));
   });
 });
