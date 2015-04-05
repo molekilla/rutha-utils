@@ -11,6 +11,12 @@ Uses [nconf](https://www.npmjs.org/package/nconf)
 
 Call `utils.Config.get('key')` to read config attributes.
 
+### RuthaUtils config feature toggles
+
+#### config.isFeatureEnabled(key)
+
+Where key is defined in a _featureToggles section
+
 ### RuthaUtils.Logger
 
 Uses [winston](https://www.npmjs.org/package/winston)
@@ -118,6 +124,7 @@ var controllers = [
 
 ### Changelog
 
+* 1.1.0: added feature toggles
 * 1.0.0: Fixed config environment issue, use load. Deprecated Mongoose Client, use new Mongoose utils
 
 

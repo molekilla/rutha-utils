@@ -9,5 +9,8 @@
   "logger": {
     "filename": "logs/dev.log",
     "level": "silly"
-  }
+  },
+    "_featureToggles": {
+        "api": true
+    }
 }

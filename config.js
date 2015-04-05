@@ -19,6 +19,14 @@ Config.prototype.get = function(key) {
   return nconf.get(key);
 };
 
+Config.prototype.isFeatureEnabled  = function(key) {
+  
+    if (!nconf.get('_featureToggles')) {
+      throw new Error('Missing _featureToggles config section');
+    }
+    return !!nconf.get('_featureToggles:' + key);  
+};
+
 module.exports = Config;
 
 
